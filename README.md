@@ -1,4 +1,4 @@
-# Mac-M1-Setup
+# Mac-M4-Pro-Setup
 
 [Zsh Plugin Manager](https://github.com/zplug/zplug)
 
