@@ -2,7 +2,7 @@
 
 [Zsh Plugin Manager](https://github.com/zplug/zplug)
 
-### This script is designed to setup MAC M1.  
+### This script is designed to setup MAC M4 Pro.  
 
 ### You won’t need Xcode to use Homebrew, but some of the software and components you’ll want to install will rely on Xcode’s Command Line Tools package.
 ``` xcode-select --install ```
