@@ -1,109 +1,76 @@
 #!/bin/sh
 
-# This script is designed to setup MAC M1.  
+# Script to setup Mac M4 (Apple Silicon)
 
-# (Optional)
-# You won’t need Xcode to use Homebrew, but some of the software and components you’ll want to 
-# install will rely on Xcode’s Command Line Tools package.
+# 1. Install Xcode Command Line Tools (needed for some packages)
 xcode-select --install
 
-# Install Brew # install homebrew
-curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+# 2. Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Set Path 
-# Note - Please change the username before use 
-echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> /Users/ajeet/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/imajeetyadav/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# 4. Update Homebrew & check
 brew doctor
-brew install cask
-brew doctor
-# homebrew cask updater: https://github.com/buo/homebrew-cask-upgrade
-brew tap buo/cask-upgrade
+brew update
 
-# add additional repos for homebrew to track, update & install
-
-# add cask-drivers
+# 5. Add useful taps
 brew tap homebrew/cask-drivers
-# add fonts
 brew tap homebrew/cask-fonts
+brew tap buo/cask-upgrade   # for cask upgrade command
 
-# install git
+# 6. Install core tools
 brew install git
-
-# install Z-Shell
 brew install zsh
 
-# install Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# 7. Install Oh My Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# The installation script should set zsh to your default shell, but if it doesn't you can do it manually
+# Set Zsh as default shell (if not already)
 chsh -s $(which zsh)
 
-# To apply the changes you make you need to either start new shell instance or run
+# Reload config
 source ~/.zshrc
 
-# zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# 8. Zsh Plugins
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-# zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions \
+  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-# Enforce Changes
+# Reload Zsh
 source ~/.zshrc
 
-# brew Path Issue after installing ZSH
-echo export PATH=$PATH:/opt/homebrew/bin >> .zshrc
-# Enforce Changes
+# 9. Fix PATH issues
+echo 'export PATH=$PATH:/opt/homebrew/bin' >> ~/.zshrc
 source ~/.zshrc
 
-# install google chrome 
+# 10. Install Apps & Tools
+
+# Browsers
 brew install --cask google-chrome
 
-# install node
+# Dev Languages & Tools
 brew install node
-
-# install golang
 brew install go
-
-# install azure-data-studio
-brew install --cask azure-data-studio
-
-# install google chrome 
-brew install --cask google-chrome
-
-# install docker
-brew install --cask docker
-
-# install java
 brew install openjdk
-
-# install microsoft-azure-storage-explorer
-brew install microsoft-azure-storage-explorer
-
-# install ngrok
-brew cask install ngrok
-
-# install postman
-brew install --cask postman
-
-# install visual studio code
-brew install --cask visual-studio-code
-
-# install sublime-text
-brew install --cask sublime-text
-
-# install jetbrains-toolbox
-brew install --cask jetbrains-toolbox
-
-# install minikube 
-brew install minikube
-
-# install terraform
 brew install terraform
-
-# install httpie
+brew install minikube
 brew install httpie
 
-# install canva
-brew install --cask canva
+# IDEs & Editors
+brew install --cask visual-studio-code
+brew install --cask sublime-text
+brew install --cask jetbrains-toolbox
+brew install --cask azure-data-studio
+brew install --cask postman
 
+# Cloud / Utilities
+brew install --cask docker
+brew install --cask microsoft-azure-storage-explorer
+brew install --cask ngrok   # updated, no 'cask install'
+
+# Productivity
+brew install --cask canva
