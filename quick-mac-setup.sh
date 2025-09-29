@@ -15,11 +15,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew doctor
 brew update
 
-# 5. Add useful taps
-brew tap homebrew/cask-drivers
-brew tap homebrew/cask-fonts
-brew tap buo/cask-upgrade   # for cask upgrade command
-
 # 6. Install core tools
 brew install git
 brew install zsh
